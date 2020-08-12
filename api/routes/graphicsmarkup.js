@@ -25,7 +25,6 @@ router.post('/graphicsMarkup', async (req, res) => {
     else{
       filteredByLocations=respJson
     }
-    console.log(filteredByLocations)
 
     let sortingObj=req.body.sorting
     let sortedValues=[]
