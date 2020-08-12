@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch');
+const tools = require('../func/toolFunctions');
 
 
 
@@ -16,31 +17,12 @@ router.post('/graphicsMarkup', async (req, res) => {
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
     let resp=await fetch(url)
     let respJson=await resp.json()
-    let filteredByLocations=[]
-    if(req.body.locations.length>0){
-     filteredByLocations=respJson.filter((item)=>{
-      return item.content.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current.toLowerCase()),true)
-    })
-    }
-    else{
-      filteredByLocations=respJson
-    }
-
-    let sortingObj=req.body.sorting
-    let sortedValues=[]
-    let chosenFrame='out_frame'
-
-    if(sortingObj.in_frame.active){//we are sorting by inframe
-      chosenFrame='in_frame'
-    }
+    // let filteredByLocations=[]
+    let filteredByLocations=tools.filterByLocations(respJson,req.body.locations)
 
 
-    if(sortingObj[chosenFrame].ascending){
-      sortedValues=filteredByLocations.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
-    }
-    else{
-      sortedValues=filteredByLocations.sort(function(a, b){return b[chosenFrame]-a[chosenFrame]});
-    }
+    let sortedValues=tools.sortAscDesc(req.body.sorting,filteredByLocations)
+
 
     let usersPageNumber=parseInt(req.body.pageNumber) 
     let maxRowLength=parseInt(req.body.maxRowLength) 
