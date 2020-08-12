@@ -106,28 +106,33 @@ const doc = {
       },
     },
     "/api/graphicsMarkupPages": {
-      post: {
+      get: {
         tags: ["ComputerVision"],
         description: "Get the total amount of pages to display",
         operationId: "getTotalNumOfPages",
-        parameters: [],
-        requestBody: {
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                  rows: {
-                    type: "string",
-                    description: "First name of user,both",
-                    example: "Jan",
-                    required: true,
-                  },
-                },
-              },
-            },
-          },
-        },
+        parameters: [
+          {
+            in:'header',
+            name:'halko'
+          }
+        ],
+        // requestBody: {
+        //   content: {
+        //     "application/json": {
+        //       schema: {
+        //         type: "object",
+        //         properties: {
+        //           rows: {
+        //             type: "string",
+        //             description: "First name of user,both",
+        //             example: "Jan",
+        //             required: true,
+        //           },
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
         responses: {
           "200": {
             description: "Calculated the amount successfuly",
