@@ -21,7 +21,7 @@ router.post('/graphicsMarkup', async (req, res) => {
      filteredByLocations=respJson.filter((item)=>{
       return item.content.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current.toLowerCase()),true)
     })
-  }
+    }
     console.log(filteredByLocations)
 
     let sortingObj=req.body.sorting
