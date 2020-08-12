@@ -137,15 +137,12 @@ renderInput(){
 }
 render(){
   return(
-    < >
-        <div style={{textAlign:'center'}} >Graphics Markup Results</div>
-        <div style={{ display:'inline-block',flex:1}}>
-          {this.renderInput()}
-          {this.renderTable()}
-          {this.renderPageNumbers()}
-        </div>
-        
-    </>
+    <div>
+      <div style={{textAlign:'center'}} >Graphics Markup Results</div>
+      {this.renderInput()}
+      {this.renderTable()}
+      {this.renderPageNumbers()}
+    </div>
   )
 }
 }
