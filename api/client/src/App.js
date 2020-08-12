@@ -21,8 +21,8 @@ async fetchNumberOfPages(){
   this.setState({numberOfPages:resp.pages})
 }
 async fetchData(){
-  let resp=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting)
-  this.setState({elements:resp.fragment})
+  let filtered=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting)
+  this.setState({elements:filtered})
 
 }
 renderTableRow(item,idx){

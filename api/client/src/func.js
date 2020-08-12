@@ -9,12 +9,23 @@ export async function fetchData(pageNumber,maxAmountOfRows,sorting){
         };
     let resp=await axios.post(url,payload)
     let dat=await resp.data
-    return dat
+    if(dat.success){
+        return dat.fragment
+    }
+    else{
+        return []
+    }
+    
 }
 export async function fetchPageNumbers(numberOfRows){
     let url=myurl+'api/graphicsMarkupPages'
     let config={ headers: { rows: numberOfRows }}
     let resp=await axios.get(url,config)
     let dat=await resp.data
-    return dat
+    if(dat.success){
+        return dat.pages
+    }
+    else{
+        return 0
+    }
 }
