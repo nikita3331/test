@@ -57,7 +57,7 @@ router.post('/graphicsMarkup', async (req, res) => {
 
 
     
-  res.status(200).json({success:true,fragment:cropped,totalAmount:filteredByLocations.length})
+  res.status(200).json({success:true,fragment:cropped,totalAmount:Math.ceil(filteredByLocations.length/req.body.maxRowLength)})
   
 
   } catch (err) {
@@ -66,25 +66,7 @@ router.post('/graphicsMarkup', async (req, res) => {
 
 
 })
-router.get('/graphicsMarkupPages', async (req, res) => { 
 
-
-  try {
-
-    let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
-    let resp=await fetch(url)
-    let respJson=await resp.json()
-    let usersRows=req.header('rows')
-    let numberOfPages=Math.ceil(respJson.length/usersRows)
-  res.status(200).json({success:true,pages:numberOfPages})
-  
-
-  } catch (err) {
-    res.status(500).json({success:false,message:err.message})
-  }
-
-
-})
 
 
 

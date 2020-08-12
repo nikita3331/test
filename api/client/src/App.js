@@ -16,16 +16,13 @@ class Main extends React.Component {
     
 }
 componentDidMount(){
-  this.fetchNumberOfPages()
+
   this.fetchData()
 }
-async fetchNumberOfPages(){
-  let pages =await fetchPageNumbers(this.state.maxAmountOfRows)
-  this.setState({numberOfPages:pages})
-}
+
 async fetchData(){
   let filtered=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting,this.state.filterArray)
-  this.setState({elements:filtered.fragment,numberOfPages:Math.ceil(filtered.totalAmount/this.state.maxAmountOfRows)})
+  this.setState({elements:filtered.fragment,numberOfPages:filtered.totalAmount })
 
 }
 renderTableRow(item,idx){

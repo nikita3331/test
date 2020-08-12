@@ -78,74 +78,16 @@ const doc = {
                     fragment: {
                       type: "Array",
                     },
+                    totalAmount: {
+                      type: "Number",
+                      description:'Total amount of pages based on filtering'
+                    },
                   },
                 },
                 example: {
                   success: true,
                   fragment: [],
-                },
-              },
-            },
-          },
-          "500": {
-            description: "Server error",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    success: {
-                      type: "boolean",
-                    },
-                    message: {
-                      type: "string",
-                    },
-                  },
-                },
-                example: {
-                  success: false,
-                  message: "failed to load",
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    "/api/graphicsMarkupPages": {
-      get: {
-        tags: ["ComputerVision"],
-        description: "Get the total amount of pages to display",
-        operationId: "getTotalNumOfPages",
-        parameters: [
-          {
-            in:'header',
-            name:'rows',
-            description:'Amount of rows per page.',
-            example:20,
-            type:'Number',
-            required:true
-          }
-        ],
-        responses: {
-          "200": {
-            description: "Calculated the amount successfuly",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    success: {
-                      type: "boolean",
-                    },
-                    pages: {
-                      type: "Number",
-                    },
-                    
-                  },
-                },
-                example: {
-                  success: true,
+                  totalAmount: 5,
                 },
               },
             },

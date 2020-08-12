@@ -20,16 +20,4 @@ export async function fetchData(pageNumber,maxAmountOfRows,sorting,filterArray){
     }
     
 }
-export async function fetchPageNumbers(numberOfRows){
-    let url=myurl+'api/graphicsMarkupPages'
-    let config={ headers: { rows: numberOfRows }}
-    let resp=await axios.get(url,config)
-    let dat=await resp.data
-    
-    if(dat.success){
-        return dat.pages
-    }
-    else{
-        return 0
-    }
-}
+
