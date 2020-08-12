@@ -17,8 +17,8 @@ componentDidMount(){
   this.fetchData()
 }
 async fetchNumberOfPages(){
-  let resp =await fetchPageNumbers(this.state.maxAmountOfRows)
-  this.setState({numberOfPages:resp.pages})
+  let pages =await fetchPageNumbers(this.state.maxAmountOfRows)
+  this.setState({numberOfPages:pages})
 }
 async fetchData(){
   let filtered=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting)
