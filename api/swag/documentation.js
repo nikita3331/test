@@ -113,26 +113,13 @@ const doc = {
         parameters: [
           {
             in:'header',
-            name:'halko'
+            name:'rows',
+            description:'Amount of rows per page.',
+            example:20,
+            type:'Number',
+            required:true
           }
         ],
-        // requestBody: {
-        //   content: {
-        //     "application/json": {
-        //       schema: {
-        //         type: "object",
-        //         properties: {
-        //           rows: {
-        //             type: "string",
-        //             description: "First name of user,both",
-        //             example: "Jan",
-        //             required: true,
-        //           },
-        //         },
-        //       },
-        //     },
-        //   },
-        // },
         responses: {
           "200": {
             description: "Calculated the amount successfuly",
