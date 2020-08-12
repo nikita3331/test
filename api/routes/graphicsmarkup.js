@@ -19,7 +19,7 @@ router.post('/graphicsMarkup', async (req, res) => {
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
     let resp=await fetch(url)
     let respJson=await resp.json()
-    
+    console.log(req.body)
     let usersPageNumber=parseInt(req.body.pageNumber) 
     let maxRowLength=parseInt(req.body.maxRowLength) 
     let sortingObj=req.body.sorting
