@@ -27,6 +27,18 @@ module.exports = {
         }
         return sortedValues
     },
+    cropToPage: function (values,usersPageNumber,maxRowLength,fullSize) {
+      let sizeToCrop=0
+      if((usersPageNumber+1)*maxRowLength>fullSize){
+        sizeToCrop=fullSize
+      }
+      else{
+        sizeToCrop=(usersPageNumber+1)*maxRowLength
+      }
+      let cropped=values.slice(usersPageNumber*maxRowLength,sizeToCrop)
+      return cropped
+  },
+    
 
 
   };

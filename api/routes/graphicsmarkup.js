@@ -23,22 +23,17 @@ router.post('/graphicsMarkup', async (req, res) => {
 
     let sortedValues=tools.sortAscDesc(req.body.sorting,filteredByLocations)
 
+    
 
     let usersPageNumber=parseInt(req.body.pageNumber) 
     let maxRowLength=parseInt(req.body.maxRowLength) 
-    let fullSize=respJson.length
-    let sizeToCrop=0
-    if((usersPageNumber+1)*maxRowLength>fullSize){
-      sizeToCrop=fullSize
-    }
-    else{
-      sizeToCrop=(usersPageNumber+1)*maxRowLength
-    }
-    let cropped=sortedValues.slice(usersPageNumber*maxRowLength,sizeToCrop)
+    let fullSize=sortedValues.length //changed here
 
+    let cropped=tools.cropToPage(sortedValues,usersPageNumber,maxRowLength,fullSize)
+    let amountOfPages=Math.ceil(filteredByLocations.length/req.body.maxRowLength)
 
     
-  res.status(200).json({success:true,fragment:cropped,totalAmount:Math.ceil(filteredByLocations.length/req.body.maxRowLength)})
+  res.status(200).json({success:true,fragment:cropped,totalAmount:amountOfPages})
   
 
   } catch (err) {

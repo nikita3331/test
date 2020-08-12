@@ -119,7 +119,7 @@ setFilter(){
       trimmed.push(word)
     }
   }
-  this.setState({filterArray:trimmed},()=>{this.fetchData()})
+  this.setState({filterArray:trimmed,pageNumber:0},()=>{this.fetchData()})
 }
 renderInput(){
   return(
