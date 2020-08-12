@@ -8,7 +8,6 @@ export async function fetchData(pageNumber,maxAmountOfRows,sorting){
         sorting:sorting
         };
     let resp=await axios.post(url,payload)
-    console.log(resp)
     let dat=await resp.data
     return dat
 }

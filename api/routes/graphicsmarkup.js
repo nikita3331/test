@@ -2,7 +2,6 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch');
-const Math = require('math');
 
 
 
@@ -22,7 +21,7 @@ router.post('/graphicsMarkup', async (req, res) => {
     let sortingObj=req.body.sorting
     let sortedValues=[]
     let chosenFrame='out_frame'
-    
+
     if(sortingObj.in_frame.active){//we are sorting by inframe
       chosenFrame='in_frame'
     }

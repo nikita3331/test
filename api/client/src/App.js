@@ -22,7 +22,6 @@ async fetchNumberOfPages(){
 }
 async fetchData(){
   let resp=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting)
-  console.log(resp.fragment)
   this.setState({elements:resp.fragment})
 
 }
@@ -49,7 +48,7 @@ sortingPressed(type){
     newObj.out_frame.active=false
   }
   else{
-    newObj.in_frame.ascending=!newObj.in_frame.ascending
+    newObj.out_frame.ascending=!newObj.out_frame.ascending
     newObj.in_frame.active=false
     newObj.out_frame.active=true
   }
@@ -57,7 +56,7 @@ sortingPressed(type){
 }
 renderTable(){
   return(
-    <Table striped bordered hover responsive >
+    <Table striped bordered hover responsive  >
       <thead>
         <tr>
           <th>
@@ -75,6 +74,7 @@ renderTable(){
         {this.state.elements.map((item,idx)=>{return(this.renderTableRow(item,idx))})}
       </tbody>
     </Table>
+
   )
 }
 
@@ -90,7 +90,7 @@ renderOneRow(number){
   return(
     <div style={{display: 'flex', alignItems:'center',alignSelf:'center',justifyContent:'center'}}>
       {amount.map((numColumn,b)=>{return(
-      <Button variant="primary" style={{margin:'0.5vw',display:'inline-block'}} onClick={()=>{this.setState({pageNumber:numColumn-1},()=>{this.fetchData()})}}>
+      <Button variant="primary" style={{margin:'0.5vw'}} onClick={()=>{this.setState({pageNumber:numColumn-1},()=>{this.fetchData()})}}>
         {numColumn<10?addZero:null}{numColumn}
       </Button>)})}
     </div>
@@ -111,14 +111,14 @@ renderPageNumbers(){
 }
 render(){
   return(
-    <div>
-        <div style={{verticalAlign:'center',textAlign:'center'}} >Graphics Markup Results</div>
-        <div style={{display: 'flex', alignItems:'center',display:'inline-block'}}>
+    < >
+        <div style={{textAlign:'center'}} >Graphics Markup Results</div>
+        <div style={{ display:'inline-block'}}>
           {this.renderTable()}
           {this.renderPageNumbers()}
         </div>
         
-    </div>
+    </>
   )
 }
 }
