@@ -34,7 +34,7 @@ router.get('/graphicsMarkup', async (req, res) => {
       console.log('w else')
       sizeToCrop=(usersPageNumber+1)*maxRowLength
     }
-    console.log('sizetocorp',sizeToCrop)
+    console.log('sizetocorp',sizeToCrop,(usersPageNumber+1),maxRowLength)
     let cropped=respJson.slice(usersPageNumber*maxRowLength,sizeToCrop)
     
   res.status(200).json({fragment:cropped})
