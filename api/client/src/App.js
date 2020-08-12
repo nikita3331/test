@@ -9,7 +9,7 @@ import {fetchData,fetchPageNumbers} from './func'
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state={pageNumber:0,elements:[],maxAmountOfRows:8,numberOfPages:0,sorting:{in_frame:{active:true,type:'descending'},out_frame:{active:false,type:'descending'}}}
+    this.state={pageNumber:0,elements:[],maxAmountOfRows:8,numberOfPages:0,sorting:{in_frame:{active:true,ascending:true},out_frame:{active:false,ascending:true}}}
     
 }
 componentDidMount(){
@@ -43,27 +43,17 @@ return(
 sortingPressed(type){
   let newObj=this.state.sorting
   if(type==0){
-    if(newObj.in_frame.type=='descending'){
-      newObj.in_frame.type='ascending'
-    }
-    else{
-      newObj.in_frame.type='descending'
-    }
+
+    newObj.in_frame.ascending=!newObj.in_frame.ascending
     newObj.in_frame.active=true
     newObj.out_frame.active=false
   }
-  if(type==1){
-    if(newObj.out_frame.type=='descending'){
-      newObj.out_frame.type='ascending'
-    }
-    else{
-      newObj.out_frame.type='descending'
-    }
+  else{
+    newObj.in_frame.ascending=!newObj.in_frame.ascending
     newObj.in_frame.active=false
     newObj.out_frame.active=true
   }
-  console.log(newObj)
-  this.setState({sorting:newObj},()=>{this.fetchData()})
+  this.setState({sorting:newObj,pageNumber:0},()=>{this.fetchData()})
 }
 renderTable(){
   return(

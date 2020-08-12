@@ -22,15 +22,13 @@ router.post('/graphicsMarkup', async (req, res) => {
     let sortingObj=req.body.sorting
     let sortedValues=[]
     let chosenFrame='out_frame'
-    let ascending=true
+    
     if(sortingObj.in_frame.active){//we are sorting by inframe
       chosenFrame='in_frame'
     }
-    if(sortingObj[chosenFrame].type=='descending'){
-      ascending=false
-    }
 
-    if(ascending){
+
+    if(sortingObj[chosenFrame].ascending){
       sortedValues=respJson.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
     }
     else{
