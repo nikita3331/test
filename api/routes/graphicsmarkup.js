@@ -12,8 +12,6 @@ const Math = require('math');
 
 
 router.post('/graphicsMarkup', async (req, res) => { 
-
-
   try {
 
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'

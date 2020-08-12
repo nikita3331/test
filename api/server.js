@@ -5,10 +5,12 @@ const app = express()
 const cors = require('cors')
 const markupRouter = require('./routes/graphicsmarkup')
 const path = require('path');
+const bodyParser = require('body-parser')
 
 
 app.use(cors())
 app.disable('etag');
+app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html')); 
