@@ -2,8 +2,12 @@ import axios from 'axios';
 let myurl='https://testwirewax.herokuapp.com/' 
 export async function fetchData(pageNumber,maxAmountOfRows,sorting){
     let url=myurl+'api/graphicsMarkup'
-    let params={ pageNumber: pageNumber,maxRowLength:maxAmountOfRows ,sorting:sorting}
-    let resp=await axios.post(url,params)
+    let payload = {
+        pageNumber: pageNumber,
+        maxRowLength:maxAmountOfRows ,
+        sorting:sorting
+        };
+    let resp=await axios.post(url,payload)
     console.log(resp)
     let dat=await resp.data
     return dat
