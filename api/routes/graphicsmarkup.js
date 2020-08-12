@@ -20,11 +20,16 @@ router.get('/graphicsMarkup', async (req, res) => {
     let resp=await fetch(url)
     let respJson=await resp.json()
     
-    let usersPageNumber=parseInt(req.header('pageNumber')) 
-    let maxRowLength=parseInt(req.header('maxRowLength')) 
-    
+    let usersPageNumber=parseInt(req.body.pageNumber) 
+    let maxRowLength=parseInt(req.body.maxRowLength) 
+    let sortingObj=req.body.sorting
+    console.log(sortingObj)
     let fullSize=respJson.length
     let sizeToCrop=0
+
+
+
+
     if((usersPageNumber+1)*maxRowLength>fullSize){
       sizeToCrop=fullSize
     }
@@ -32,8 +37,25 @@ router.get('/graphicsMarkup', async (req, res) => {
       sizeToCrop=(usersPageNumber+1)*maxRowLength
     }
     let cropped=respJson.slice(usersPageNumber*maxRowLength,sizeToCrop)
+
+    let sortedValues=[]
+    let chosenFrame='out_frame'
+    let ascending=true
+    if(sortingObj.in_frame.active){//we are sorting by inframe
+      chosenFrame='in_frame'
+    }
+    if(sortingObj[chosenFrame].type=='descending'){
+      ascending=false
+    }
+
+    if(ascending){
+      sortedValues=cropped.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
+    }
+    else{
+      sortedValues=cropped.sort(function(a, b){return b[chosenFrame]-a[chosenFrame]});
+    }
     
-  res.status(200).json({fragment:cropped})
+  res.status(200).json({fragment:sortedValues})
   
 
   } catch (err) {

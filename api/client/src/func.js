@@ -1,9 +1,9 @@
 import axios from 'axios';
 let myurl='https://testwirewax.herokuapp.com/' 
-export async function fetchData(pageNumber,maxAmountOfRows){
+export async function fetchData(pageNumber,maxAmountOfRows,sorting){
     let url=myurl+'api/graphicsMarkup'
-    let config={ headers: { pageNumber: pageNumber,maxRowLength:maxAmountOfRows }}
-    let resp=await axios.get(url,config)
+    let params={ pageNumber: pageNumber,maxRowLength:maxAmountOfRows ,sorting:sorting}
+    let resp=await axios.post(url,params)
     let dat=await resp.data
     return dat
 }
