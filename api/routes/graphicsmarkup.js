@@ -21,7 +21,10 @@ router.post('/graphicsMarkup', async (req, res) => {
      filteredByLocations=respJson.filter((item)=>{
       return item.content.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current.toLowerCase()),true)
     })
-  }
+    }
+    else{
+      filteredByLocations=respJson
+    }
     console.log(filteredByLocations)
 
     let sortingObj=req.body.sorting
@@ -54,7 +57,7 @@ router.post('/graphicsMarkup', async (req, res) => {
 
 
     
-  res.status(200).json({success:true,fragment:cropped})
+  res.status(200).json({success:true,fragment:cropped,totalAmount:filteredByLocations.length})
   
 
   } catch (err) {
