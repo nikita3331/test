@@ -11,7 +11,7 @@ const Math = require('math');
 
 
 
-router.get('/graphicsMarkup', async (req, res) => { 
+router.post('/graphicsMarkup', async (req, res) => { 
 
 
   try {
