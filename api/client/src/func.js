@@ -4,6 +4,7 @@ export async function fetchData(pageNumber,maxAmountOfRows,sorting){
     let url=myurl+'api/graphicsMarkup'
     let params={ pageNumber: pageNumber,maxRowLength:maxAmountOfRows ,sorting:sorting}
     let resp=await axios.post(url,params)
+    console.log(resp)
     let dat=await resp.data
     return dat
 }

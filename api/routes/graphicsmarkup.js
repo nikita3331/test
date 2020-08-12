@@ -59,7 +59,7 @@ router.post('/graphicsMarkup', async (req, res) => {
   
 
   } catch (err) {
-    res.status(500).json({success:false,message:err.message,reason:1})
+    res.status(201).json({success:false,message:err.message,reason:1})
   }
 
 
