@@ -2,12 +2,12 @@ const doc = {
   openapi: "3.0.1",
   info: {
     version: "1.0.0",
-    title: "KorkiApp",
-    description: "Aplikacja do korepetycji ",
+    title: "Test",
+    description: "Test app ",
     termsOfService: "blank",
     contact: {
-      name: "Mykyta Brazhyskyy Maksymilian Pilżys",
-      email: "mykyta.brazhynskyy@gmail.com maks@gmail.com",
+      name: "Mykyta Brazhyskyy",
+      email: "mykyta.brazhynskyy@gmail.com",
       url: "blank",
     },
     license: {
@@ -17,8 +17,8 @@ const doc = {
   },
   servers: [
     {
-      url: "https://korkiapp-api.herokuapp.com/",
-      description: "Production server",
+      url: "https://testwirewax.herokuapp.com/",
+      description: "Test server",
     },
   ],
   paths: {
@@ -36,20 +36,20 @@ const doc = {
                 properties: {
                   pageNumber: {
                     type: "Number",
-                    description: "Index of page user w",
-                    example: "Jan",
+                    description: "Index of page user wants to load",
+                    example: 1,
                     required: true,
                   },
                   maxRowLength: {
-                    type: "string",
-                    description: "Last name of user,both",
-                    example: "Kowalski",
+                    type: "Number",
+                    description: "Amount of rows user has in table.",
+                    example: 20,
                     required: true,
                   },
                   sorting: {
-                    type: "string",
-                    description: "ID given by Firebase to user,both",
-                    example: "87ab191f339fa1f8d44be1869bdfbb659c342bf9",
+                    type: "Object",
+                    description: "Object with sorting parametres",
+                    example: {in_frame:{active:true,ascending:true},out_frame:{active:false,ascending:true}},
                     required: true,
                   }
                 },
@@ -59,7 +59,7 @@ const doc = {
         },
         responses: {
           "200": {
-            description: "Registration was successful",
+            description: "Sorted and filtered data successfuly",
             content: {
               "application/json": {
                 schema: {
@@ -67,39 +67,21 @@ const doc = {
                   properties: {
                     success: {
                       type: "boolean",
+                    },
+                    fragment: {
+                      type: "Array",
                     },
                   },
                 },
                 example: {
                   success: true,
-                },
-              },
-            },
-          },
-          "400": {
-            description: "User already exists",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    success: {
-                      type: "boolean",
-                    },
-                    reason: {
-                      type: "number",
-                    },
-                  },
-                },
-                example: {
-                  success: false,
-                  reason: 1,
+                  fragment: [],
                 },
               },
             },
           },
           "500": {
-            description: "Failed to load from datebase.Reason 0-failed",
+            description: "Server error",
             content: {
               "application/json": {
                 schema: {
@@ -107,9 +89,6 @@ const doc = {
                   properties: {
                     success: {
                       type: "boolean",
-                    },
-                    reason: {
-                      type: "number",
                     },
                     message: {
                       type: "string",
@@ -118,7 +97,6 @@ const doc = {
                 },
                 example: {
                   success: false,
-                  reason: 0,
                   message: "failed to load",
                 },
               },
@@ -127,11 +105,11 @@ const doc = {
         },
       },
     },
-    "/users/register": {
+    "/api/graphicsMarkupPages": {
       post: {
-        tags: ["User"],
-        description: "Register a student or teacher",
-        operationId: "registerUser",
+        tags: ["ComputerVision"],
+        description: "Get the total amount of pages to display",
+        operationId: "getTotalNumOfPages",
         parameters: [],
         requestBody: {
           content: {
@@ -139,34 +117,10 @@ const doc = {
               schema: {
                 type: "object",
                 properties: {
-                  firstName: {
+                  rows: {
                     type: "string",
                     description: "First name of user,both",
                     example: "Jan",
-                    required: true,
-                  },
-                  lastName: {
-                    type: "string",
-                    description: "Last name of user,both",
-                    example: "Kowalski",
-                    required: true,
-                  },
-                  firebaseID: {
-                    type: "string",
-                    description: "ID given by Firebase to user,both",
-                    example: "87ab191f339fa1f8d44be1869bdfbb659c342bf9",
-                    required: true,
-                  },
-                  isStudent: {
-                    type: "boolean",
-                    description: "Is the user a student,both",
-                    example: true,
-                    required: true,
-                  },
-                  phone: {
-                    type: "string",
-                    description: "User phone,for TEACHER",
-                    example: "782828282",
                     required: true,
                   },
                 },
@@ -176,7 +130,7 @@ const doc = {
         },
         responses: {
           "200": {
-            description: "Registration was successful",
+            description: "Calculated the amount successfuly",
             content: {
               "application/json": {
                 schema: {
@@ -185,6 +139,10 @@ const doc = {
                     success: {
                       type: "boolean",
                     },
+                    pages: {
+                      type: "Number",
+                    },
+                    
                   },
                 },
                 example: {
@@ -193,30 +151,8 @@ const doc = {
               },
             },
           },
-          "400": {
-            description: "User already exists",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    success: {
-                      type: "boolean",
-                    },
-                    reason: {
-                      type: "number",
-                    },
-                  },
-                },
-                example: {
-                  success: false,
-                  reason: 1,
-                },
-              },
-            },
-          },
           "500": {
-            description: "Failed to load from datebase.Reason 0-failed",
+            description: "Server error",
             content: {
               "application/json": {
                 schema: {
@@ -224,9 +160,6 @@ const doc = {
                   properties: {
                     success: {
                       type: "boolean",
-                    },
-                    reason: {
-                      type: "number",
                     },
                     message: {
                       type: "string",
@@ -235,7 +168,6 @@ const doc = {
                 },
                 example: {
                   success: false,
-                  reason: 0,
                   message: "failed to load",
                 },
               },

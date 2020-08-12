@@ -48,11 +48,11 @@ router.post('/graphicsMarkup', async (req, res) => {
 
 
     
-  res.status(200).json({fragment:cropped})
+  res.status(200).json({success:true,fragment:cropped})
   
 
   } catch (err) {
-    res.status(500).json({success:false,message:err.message,reason:1})
+    res.status(500).json({success:false,message:err.message})
   }
 
 
@@ -67,11 +67,11 @@ router.get('/graphicsMarkupPages', async (req, res) => {
     let respJson=await resp.json()
     let usersRows=req.header('rows')
     let numberOfPages=Math.ceil(respJson.length/usersRows)
-  res.status(200).json({pages:numberOfPages})
+  res.status(200).json({success:true,pages:numberOfPages})
   
 
   } catch (err) {
-    res.status(500).json({success:false,message:err.message,reason:1})
+    res.status(500).json({success:false,message:err.message})
   }
 
 
