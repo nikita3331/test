@@ -16,11 +16,12 @@ router.post('/graphicsMarkup', async (req, res) => {
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
     let resp=await fetch(url)
     let respJson=await resp.json()
-
-    
-    let filteredByLocations=respJson.filter((item)=>{
+    let filteredByLocations=[]
+    if(locations.length>0){
+     filteredByLocations=respJson.filter((item)=>{
       return item.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current),true)
     })
+  }
     console.log(filteredByLocations)
 
     let sortingObj=req.body.sorting
