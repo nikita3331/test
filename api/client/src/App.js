@@ -3,13 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
+
 
 import {fetchData,fetchPageNumbers} from './func'
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state={pageNumber:0,elements:[],maxAmountOfRows:8,numberOfPages:0,sorting:{in_frame:{active:true,ascending:true},out_frame:{active:false,ascending:true}}}
+    this.state={pageNumber:0,elements:[],maxAmountOfRows:8,numberOfPages:0,sorting:{in_frame:{active:true,ascending:true},out_frame:{active:false,ascending:true}},filterWord:'',filterArray:[]}
     
 }
 componentDidMount(){
@@ -21,7 +24,7 @@ async fetchNumberOfPages(){
   this.setState({numberOfPages:pages})
 }
 async fetchData(){
-  let filtered=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting)
+  let filtered=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting,this.state.filterArray)
   this.setState({elements:filtered})
 
 }
@@ -109,11 +112,38 @@ renderPageNumbers(){
       amount.map((number,b)=>{return(this.renderOneRow(number))})
   )
 }
+setFilter(){
+  let splited=this.state.filterWord.split(' ')
+  let trimmed=[]
+  let word=''
+  for(let i=0;i<splited.length;i++){
+    word=splited[i].trim()
+    if(word.length>0){
+      trimmed.push(word)
+    }
+  }
+  this.setState({filterArray:trimmed})
+}
+renderInput(){
+  return(
+
+
+      <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+        <InputGroup className="mb-3" style={{width:'30vw'}}>
+          <InputGroup.Prepend>
+            <Button variant="outline-secondary" onClick={()=>{this.setFilter()}}>Filter</Button>
+          </InputGroup.Prepend>
+          <FormControl aria-describedby="basic-addon1" placeholder="Enter locations after space" onInput={(e)=>{this.setState({filterWord:e.target.value}) }} />
+        </InputGroup>
+      </div>
+  )
+}
 render(){
   return(
     < >
         <div style={{textAlign:'center'}} >Graphics Markup Results</div>
-        <div style={{ display:'inline-block'}}>
+        <div style={{ display:'inline-block',flex:1}}>
+          {this.renderInput()}
           {this.renderTable()}
           {this.renderPageNumbers()}
         </div>

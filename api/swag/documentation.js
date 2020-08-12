@@ -51,7 +51,14 @@ const doc = {
                     description: "Object with sorting parametres",
                     example: {in_frame:{active:true,ascending:true},out_frame:{active:false,ascending:true}},
                     required: true,
-                  }
+                  },
+                  locations: {
+                    type: "Array",
+                    description: "Array of locations we want to filter",
+                    example: ['centre'],
+                    required: true,
+                  },
+                  
                 },
               },
             },

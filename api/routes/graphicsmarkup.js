@@ -18,6 +18,11 @@ router.post('/graphicsMarkup', async (req, res) => {
     let respJson=await resp.json()
 
     
+    let filteredByLocations=respJson.filter((item)=>{
+      return item.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current),true)
+    })
+    console.log(filteredByLocations)
+
     let sortingObj=req.body.sorting
     let sortedValues=[]
     let chosenFrame='out_frame'
