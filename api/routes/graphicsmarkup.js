@@ -27,7 +27,7 @@ router.get('/graphicsMarkup', async (req, res) => {
     let sizeToCrop=0
     console.log('usersPageNumber',usersPageNumber,'maxRowLength',maxRowLength,'fullSize',fullSize)
     if((usersPageNumber+1)*maxRowLength>fullSize){
-      sizeToCrop=fullSize-(usersPageNumber+1)*maxRowLength
+      sizeToCrop=fullSize
     }
     else{
       sizeToCrop=(usersPageNumber+1)*maxRowLength
