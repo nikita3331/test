@@ -26,7 +26,7 @@ import {fetchData,fetchPageNumbers} from './func'
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state={pageNumber:0}
+    this.state={pageNumber:0,elements:[]}
     
 }
 componentDidMount(){
@@ -42,6 +42,16 @@ async fetchData(){
   let resp=await fetchData(this.state.pageNumber)
   console.log(resp)
 }
+renderTableRow(){
+return(
+  <tr>
+    <th>2</th>
+    <th>2</th>
+    <th>3</th>
+    <th>haaaaaaaaaaaaaalo</th>
+  </tr>
+)
+}
 renderTable(){
   return(
     <Table striped bordered hover  >
@@ -55,12 +65,7 @@ renderTable(){
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>2</th>
-          <th>2</th>
-          <th>3</th>
-          <th>haaaaaaaaaaaaaalo</th>
-        </tr>
+        {this.state.elements.map((item,idx)=>{return(this.renderTableRow(item,idx))})}
       </tbody>
     </Table>
   )

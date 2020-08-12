@@ -2,6 +2,8 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch');
+const Math = require('math');
+
 
 
 
@@ -35,8 +37,9 @@ router.get('/graphicsMarkupPages', async (req, res) => {
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
     let resp=await fetch(url)
     let respJson=await resp.json()
-    console.log(req.header('rows'))
-  res.status(200).json(respJson)
+    let usersRows=req.header('rows')
+    let numberOfPages=Math.ceil(respJson.length/usersRows)
+  res.status(200).json({pages:numberOfPages})
   
 
   } catch (err) {
