@@ -21,14 +21,20 @@ async fetchNumberOfPages(){
 async fetchData(){
   let resp=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows)
   console.log(resp.fragment)
+  this.setState({elements:resp.fragment})
+
 }
 renderTableRow(item,idx){
+  let labelsString=item.content.labels.reduce((prev,curr)=>{return prev+' '+curr},'')
+  let locationString=item.content.location.reduce((prev,curr)=>{return prev+' '+curr},'')
+
 return(
   <tr key={idx}>
     <th>{item.in_frame}</th>
-    <th>2</th>
-    <th>3</th>
-    <th>haaaaaaaaaaaaaalo</th>
+    <th>{item.out_frame}</th>
+    <th>{item.content.value}</th>
+    <th>{labelsString}</th>
+    <th>{locationString}</th>
   </tr>
 )
 }
