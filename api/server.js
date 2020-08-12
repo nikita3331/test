@@ -18,7 +18,9 @@ app.get('/admin', (req, res) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiDocumentation.doc));
 app.use('/api', markupRouter)
-
+app.get('/*', function(req, res) {
+  res.redirect('/')
+});
 
 
 app.listen(process.env.PORT||3000, () => console.log('Server Started'))
