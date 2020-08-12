@@ -17,7 +17,7 @@ router.post('/graphicsMarkup', async (req, res) => {
     let resp=await fetch(url)
     let respJson=await resp.json()
     let filteredByLocations=[]
-    if(locations.length>0){
+    if(req.body.locations.length>0){
      filteredByLocations=respJson.filter((item)=>{
       return item.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current),true)
     })

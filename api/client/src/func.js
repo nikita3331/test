@@ -10,6 +10,8 @@ export async function fetchData(pageNumber,maxAmountOfRows,sorting,filterArray){
         };
     let resp=await axios.post(url,payload)
     let dat=await resp.data
+    console.log(dat)
+
     if(dat.success){
         return dat.fragment
     }
