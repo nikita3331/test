@@ -25,6 +25,7 @@ async fetchNumberOfPages(){
 }
 async fetchData(){
   let filtered=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows,this.state.sorting,this.state.filterArray)
+  console.log(filtered)
   this.setState({elements:filtered})
 
 }
@@ -122,7 +123,7 @@ setFilter(){
       trimmed.push(word)
     }
   }
-  this.setState({filterArray:trimmed})
+  this.setState({filterArray:trimmed},()=>{this.fetchData()})
 }
 renderInput(){
   return(
