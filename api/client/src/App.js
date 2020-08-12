@@ -7,7 +7,7 @@ import {fetchData,fetchPageNumbers} from './func'
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state={pageNumber:0,elements:[],maxAmountOfRows:20,numberOfPages:0}
+    this.state={pageNumber:1,elements:[],maxAmountOfRows:19,numberOfPages:0}
     
 }
 componentDidMount(){
