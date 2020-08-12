@@ -19,8 +19,21 @@ router.get('/graphicsMarkup', async (req, res) => {
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
     let resp=await fetch(url)
     let respJson=await resp.json()
-    console.log(respJson.length)
-  res.status(200).json(respJson)
+    
+    let usersPageNumber=req.header('pageNumber')
+    let maxRowLength=req.header('maxRowLength')
+    
+    let fullSize=respJson.length
+    let sizeToCrop=0
+    if((usersPageNumber+1)*maxRowLength>fullSize){
+      sizeToCrop=fullSize-(usersPageNumber+1)*maxRowLength
+    }
+    else{
+      sizeToCrop=(usersPageNumber+1)*maxRowLength
+    }
+    let cropped=respJson.slice(usersPageNumber*maxRowLength,sizeToCrop)
+    
+  res.status(200).json({fragment:cropped})
   
 
   } catch (err) {

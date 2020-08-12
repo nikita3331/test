@@ -3,30 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import Table from 'react-bootstrap/Table'
 import {fetchData,fetchPageNumbers} from './func'
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state={pageNumber:0,elements:[]}
+    this.state={pageNumber:0,elements:[],maxAmountOfRows:20,numberOfPages:0}
     
 }
 componentDidMount(){
@@ -34,18 +15,17 @@ componentDidMount(){
   this.fetchData()
 }
 async fetchNumberOfPages(){
-  let numberOfRows=20
-  let number =await fetchPageNumbers(numberOfRows)
-  console.log(number)
+  let resp =await fetchPageNumbers(this.state.maxAmountOfRows)
+  this.setState({numberOfPages:resp.pages})
 }
 async fetchData(){
-  let resp=await fetchData(this.state.pageNumber)
-  console.log(resp)
+  let resp=await fetchData(this.state.pageNumber,this.state.maxAmountOfRows)
+  console.log(resp.fragment)
 }
-renderTableRow(){
+renderTableRow(item,idx){
 return(
-  <tr>
-    <th>2</th>
+  <tr key={idx}>
+    <th>{item.in_frame}</th>
     <th>2</th>
     <th>3</th>
     <th>haaaaaaaaaaaaaalo</th>
