@@ -21,7 +21,7 @@ router.post('/graphicsMarkup', async (req, res) => {
      filteredByLocations=respJson.filter((item)=>{
       return item.content.location.reduce((accumulator, current) => accumulator && req.body.locations.includes(current.toLowerCase()),true)
     })
-    }
+  }
     console.log(filteredByLocations)
 
     let sortingObj=req.body.sorting
@@ -42,7 +42,7 @@ router.post('/graphicsMarkup', async (req, res) => {
 
     let usersPageNumber=parseInt(req.body.pageNumber) 
     let maxRowLength=parseInt(req.body.maxRowLength) 
-    let fullSize=filteredByLocations.length
+    let fullSize=respJson.length
     let sizeToCrop=0
     if((usersPageNumber+1)*maxRowLength>fullSize){
       sizeToCrop=fullSize

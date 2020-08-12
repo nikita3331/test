@@ -13,7 +13,7 @@ export async function fetchData(pageNumber,maxAmountOfRows,sorting,filterArray){
     console.log(dat)
 
     if(dat.success){
-        return dat.fragment
+        return dat
     }
     else{
         return []
