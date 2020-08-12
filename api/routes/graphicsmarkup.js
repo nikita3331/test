@@ -17,25 +17,9 @@ router.post('/graphicsMarkup', async (req, res) => {
     let url='https://wirewax.s3-eu-west-1.amazonaws.com/CodeTest/graphics-markup-test-data.json'
     let resp=await fetch(url)
     let respJson=await resp.json()
-    console.log(req.body)
-    let usersPageNumber=parseInt(req.body.pageNumber) 
-    let maxRowLength=parseInt(req.body.maxRowLength) 
+
+    
     let sortingObj=req.body.sorting
-    console.log(sortingObj)
-    let fullSize=respJson.length
-    let sizeToCrop=0
-
-
-
-
-    if((usersPageNumber+1)*maxRowLength>fullSize){
-      sizeToCrop=fullSize
-    }
-    else{
-      sizeToCrop=(usersPageNumber+1)*maxRowLength
-    }
-    let cropped=respJson.slice(usersPageNumber*maxRowLength,sizeToCrop)
-
     let sortedValues=[]
     let chosenFrame='out_frame'
     let ascending=true
@@ -47,17 +31,31 @@ router.post('/graphicsMarkup', async (req, res) => {
     }
 
     if(ascending){
-      sortedValues=cropped.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
+      sortedValues=respJson.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
     }
     else{
-      sortedValues=cropped.sort(function(a, b){return b[chosenFrame]-a[chosenFrame]});
+      sortedValues=respJson.sort(function(a, b){return b[chosenFrame]-a[chosenFrame]});
     }
+
+    let usersPageNumber=parseInt(req.body.pageNumber) 
+    let maxRowLength=parseInt(req.body.maxRowLength) 
+    let fullSize=respJson.length
+    let sizeToCrop=0
+    if((usersPageNumber+1)*maxRowLength>fullSize){
+      sizeToCrop=fullSize
+    }
+    else{
+      sizeToCrop=(usersPageNumber+1)*maxRowLength
+    }
+    let cropped=sortedValues.slice(usersPageNumber*maxRowLength,sizeToCrop)
+
+
     
-  res.status(200).json({fragment:sortedValues})
+  res.status(200).json({fragment:cropped})
   
 
   } catch (err) {
-    res.status(201).json({success:false,message:err.message,reason:1})
+    res.status(500).json({success:false,message:err.message,reason:1})
   }
 
 
