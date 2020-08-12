@@ -34,15 +34,15 @@ router.post('/graphicsMarkup', async (req, res) => {
 
 
     if(sortingObj[chosenFrame].ascending){
-      sortedValues=respJson.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
+      sortedValues=filteredByLocations.sort(function(a, b){return a[chosenFrame]-b[chosenFrame]});
     }
     else{
-      sortedValues=respJson.sort(function(a, b){return b[chosenFrame]-a[chosenFrame]});
+      sortedValues=filteredByLocations.sort(function(a, b){return b[chosenFrame]-a[chosenFrame]});
     }
 
     let usersPageNumber=parseInt(req.body.pageNumber) 
     let maxRowLength=parseInt(req.body.maxRowLength) 
-    let fullSize=respJson.length
+    let fullSize=filteredByLocations.length
     let sizeToCrop=0
     if((usersPageNumber+1)*maxRowLength>fullSize){
       sizeToCrop=fullSize
